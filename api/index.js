@@ -154,17 +154,16 @@ bot.action(/^reject_(\d+)$/, async (ctx) => {
     return ctx.answerCbQuery();
 });
 
-// Vercel Serverless Function Handler
+// --- VERCEL HANDLER ---
 module.exports = async (req, res) => {
     if (req.method === 'POST') {
         try {
             await bot.handleUpdate(req.body);
             res.status(200).send('OK');
         } catch (err) {
-            console.error(err);
-            res.status(500).send('Bot error');
+            res.status(500).send('Error');
         }
     } else {
-        res.status(200).send('Bot is online!');
+        res.status(200).send('Bot is active');
     }
 };
