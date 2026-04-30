@@ -4,8 +4,8 @@ const path = require('path');
 
 // --- CONFIGURATION ---
 // Use environment variables for security on Vercel
-const TOKEN = process.env.TOKEN || "8715171203:AAGy_iMja9G0QXivtlW_bzj5o6X5ZhCds3k";
-const ADMIN_ID = parseInt(process.env.ADMIN_ID) || 5719967199;
+const TOKEN = "8715171203:AAGy_iMja9G0QXivtlW_bzj5o6X5ZhCds3k";
+const ADMIN_ID = 5719967199;
 
 // Better path handling for Vercel environments
 const QR_CODE_PATH = path.join(__dirname, 'code.jpeg');
