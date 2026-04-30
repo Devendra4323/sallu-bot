@@ -180,6 +180,4 @@ module.exports = async (req, res) => {
         res.status(500).send('Error');
     }
 };
-// Enable graceful stop
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+
