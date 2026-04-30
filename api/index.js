@@ -3,11 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 // --- CONFIGURATION ---
-// Use environment variables for security on Vercel
 const TOKEN = "8715171203:AAGy_iMja9G0QXivtlW_bzj5o6X5ZhCds3k";
 const ADMIN_ID = 5719967199;
 
-// Better path handling for Vercel environments
+// Path resolution for Vercel
 const QR_CODE_PATH = path.join(__dirname, 'code.jpeg');
 const GLOBAL_PRICE = "149rs";
 
@@ -41,7 +40,6 @@ const CHANNELS = {
     "shemale": { name: "Indina Shemale",  link: "https://t.me/+nS5YVGjqJIVkOTJl" },
 };
 
-// State management (Temporary on Vercel)
 const userState = {};
 
 const getMainKeyboard = () => {
@@ -52,17 +50,15 @@ const getMainKeyboard = () => {
     return Markup.inlineKeyboard(buttons);
 };
 
-// --- HANDLERS ---
-
 bot.start((ctx) => {
-    return ctx.replyWithMarkdownV2("🥵 **Welcome\\!** 🥵\nAll Types Content: 149rs Only", getMainKeyboard());
+    return ctx.reply("🥵 Welcome! 🥵\nAll Types Content: 149rs Only", getMainKeyboard());
 });
 
 bot.action('go_back', async (ctx) => {
     await ctx.answerCbQuery();
     if (ctx.callbackQuery.message.photo) {
         await ctx.deleteMessage();
-        return ctx.replyWithMarkdownV2("🥵 **Welcome\\!** 🥵\nSelect a channel:", getMainKeyboard());
+        return ctx.reply("🥵 Welcome! 🥵\nSelect a channel:", getMainKeyboard());
     }
     return ctx.editMessageText("Select a channel:", getMainKeyboard());
 });
@@ -73,8 +69,7 @@ bot.action('start_demo', async (ctx) => {
     userState[userId] = { demo_index: 0 };
     await ctx.deleteMessage();
     return ctx.replyWithPhoto(RAW_DEMO_PHOTOS[0], {
-        caption: `🖼 **Demo Preview** (1/${RAW_DEMO_PHOTOS.length})`,
-        parse_mode: 'Markdown',
+        caption: `🖼 Demo Preview (1/${RAW_DEMO_PHOTOS.length})`,
         ...Markup.inlineKeyboard([
             [Markup.button.callback("Next ➡️", "next_demo")],
             [Markup.button.callback("⬅️ Back to Menu", "go_back")]
@@ -91,8 +86,7 @@ bot.action('next_demo', async (ctx) => {
         await ctx.editMessageMedia({
             type: 'photo',
             media: RAW_DEMO_PHOTOS[idx],
-            caption: `🖼 **Demo Preview** (${idx + 1}/${RAW_DEMO_PHOTOS.length})`,
-            parse_mode: 'Markdown'
+            caption: `🖼 Demo Preview (${idx + 1}/${RAW_DEMO_PHOTOS.length})`
         }, Markup.inlineKeyboard([
             [Markup.button.callback("Next ➡️", "next_demo")],
             [Markup.button.callback("⬅️ Back to Menu", "go_back")]
@@ -105,13 +99,12 @@ bot.action(/^view_(.+)$/, async (ctx) => {
     const ch = CHANNELS[key];
     if (ch) {
         await ctx.answerCbQuery();
-        return ctx.editMessageText(`**Channel:** ${ch.name}\n**Price:** ${GLOBAL_PRICE}`, {
-            parse_mode: 'Markdown',
-            ...Markup.inlineKeyboard([
+        return ctx.editMessageText(`Channel: ${ch.name}\nPrice: ${GLOBAL_PRICE}`, 
+            Markup.inlineKeyboard([
                 [Markup.button.callback(`💳 Pay ₹${GLOBAL_PRICE}`, `pay_${key}`)],
                 [Markup.button.callback("⬅️ Back", "go_back")]
             ])
-        });
+        );
     }
 });
 
@@ -134,8 +127,7 @@ bot.on('photo', async (ctx) => {
     if (userId !== ADMIN_ID) {
         await ctx.reply("⏳ Verifying...");
         return ctx.telegram.sendPhoto(ADMIN_ID, photoId, {
-            caption: `🚨 **ORDER**\nUser: ${ctx.from.first_name}\nBuying: ${buying}`,
-            parse_mode: 'Markdown',
+            caption: `🚨 ORDER\nUser: ${ctx.from.first_name}\nBuying: ${buying}`,
             ...Markup.inlineKeyboard([
                 [
                     Markup.button.callback("✅ Approve", `approve_${userId}_${buying}`),
@@ -152,7 +144,7 @@ bot.action(/^approve_(\d+)_(.+)$/, async (ctx) => {
     const ch = CHANNELS[chKey];
     if (ch) {
         await ctx.editMessageCaption(`✅ Approved: ${ch.name}`);
-        await ctx.telegram.sendMessage(targetId, `🚀 **Verified!** Access granted to: **${ch.name}**`, 
+        await ctx.telegram.sendMessage(targetId, `🚀 Verified! Access granted to: ${ch.name}`, 
             Markup.inlineKeyboard([[Markup.button.url("🔗 Join Channel", ch.link)]])
         );
     }
@@ -162,7 +154,7 @@ bot.action(/^approve_(\d+)_(.+)$/, async (ctx) => {
 bot.action(/^reject_(\d+)$/, async (ctx) => {
     const targetId = ctx.match[1];
     await ctx.editMessageCaption("❌ Rejected.");
-    await ctx.telegram.sendMessage(targetId, "❌ **Rejected!** Please send a real screenshot.");
+    await ctx.telegram.sendMessage(targetId, "❌ Rejected! Please send a real screenshot.");
     return ctx.answerCbQuery();
 });
 
@@ -180,4 +172,3 @@ module.exports = async (req, res) => {
         res.status(500).send('Error');
     }
 };
-
