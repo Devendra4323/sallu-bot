@@ -1,10 +1,14 @@
 const { Telegraf, Markup } = require('telegraf');
 const fs = require('fs');
+const path = require('path');
 
 // --- CONFIGURATION ---
-const TOKEN = "8715171203:AAGy_iMja9G0QXivtlW_bzj5o6X5ZhCds3k";
-const ADMIN_ID = 5719967199;
-const QR_CODE_PATH = "./api/code.jpeg";
+// Use environment variables for security on Vercel
+const TOKEN = process.env.TOKEN || "8715171203:AAGy_iMja9G0QXivtlW_bzj5o6X5ZhCds3k";
+const ADMIN_ID = parseInt(process.env.ADMIN_ID) || 5719967199;
+
+// Better path handling for Vercel environments
+const QR_CODE_PATH = path.join(__dirname, 'code.jpeg');
 const GLOBAL_PRICE = "149rs";
 
 const bot = new Telegraf(TOKEN);
@@ -15,7 +19,6 @@ const RAW_DEMO_PHOTOS = [
     "AgACAgUAAxkBAAO9aer8XYf51rqwpfSJYm00qJAcmDIAAjHFMRsboEhWDDFZFubg5VMBAAMCAAN5AAM7BA",
     "AgACAgUAAxkBAAO-aer8XS0KCt8oUy2rtpP5nGMXkMkAAl7IMRswXXFWKd08dJ23zZEBAAMCAAN5AAM7BA",
     "AgACAgQAAxkBAAO_aer8XU6oNmOnVWuwhG1xl4EynQIAAqrHMRti6nlSMbpeldGpvGMBAAMCAAN5AAM7BA",
-    // ... add the rest of your IDs here
 ];
 
 const CHANNELS = {
@@ -38,13 +41,12 @@ const CHANNELS = {
     "shemale": { name: "Indina Shemale",  link: "https://t.me/+nS5YVGjqJIVkOTJl" },
 };
 
-// In-memory state (Note: In production, use a database or session middleware)
+// State management (Temporary on Vercel)
 const userState = {};
 
-// --- HELPERS ---
 const getMainKeyboard = () => {
     const buttons = Object.entries(CHANNELS).map(([key, d]) => [
-        Markup.button.callback(`${d.name} `, `view_${key}`)
+        Markup.button.callback(`${d.name}`, `view_${key}`)
     ]);
     buttons.push([Markup.button.callback("👉View Demo Screenshots👈", "start_demo")]);
     return Markup.inlineKeyboard(buttons);
@@ -69,7 +71,6 @@ bot.action('start_demo', async (ctx) => {
     await ctx.answerCbQuery();
     const userId = ctx.from.id;
     userState[userId] = { demo_index: 0 };
-
     await ctx.deleteMessage();
     return ctx.replyWithPhoto(RAW_DEMO_PHOTOS[0], {
         caption: `🖼 **Demo Preview** (1/${RAW_DEMO_PHOTOS.length})`,
@@ -84,10 +85,8 @@ bot.action('start_demo', async (ctx) => {
 bot.action('next_demo', async (ctx) => {
     const userId = ctx.from.id;
     if (!userState[userId]) userState[userId] = { demo_index: 0 };
-    
     let idx = (userState[userId].demo_index + 1) % RAW_DEMO_PHOTOS.length;
     userState[userId].demo_index = idx;
-
     try {
         await ctx.editMessageMedia({
             type: 'photo',
@@ -98,9 +97,7 @@ bot.action('next_demo', async (ctx) => {
             [Markup.button.callback("Next ➡️", "next_demo")],
             [Markup.button.callback("⬅️ Back to Menu", "go_back")]
         ]));
-    } catch (e) {
-        await ctx.answerCbQuery();
-    }
+    } catch (e) { await ctx.answerCbQuery(); }
 });
 
 bot.action(/^view_(.+)$/, async (ctx) => {
@@ -123,22 +120,17 @@ bot.action(/^pay_(.+)$/, async (ctx) => {
     const userId = ctx.from.id;
     if (!userState[userId]) userState[userId] = {};
     userState[userId].buying = key;
-
     await ctx.answerCbQuery();
     await ctx.reply("Pay on this QR Code and send screenshot here..");
-    
     try {
         return ctx.replyWithPhoto({ source: QR_CODE_PATH });
-    } catch (e) {
-        return ctx.reply("⚠️ QR Error.");
-    }
+    } catch (e) { return ctx.reply("⚠️ QR Error."); }
 });
 
 bot.on('photo', async (ctx) => {
     const userId = ctx.from.id;
     const photoId = ctx.message.photo[ctx.message.photo.length - 1].file_id;
     const buying = userState[userId]?.buying || 'unknown';
-
     if (userId !== ADMIN_ID) {
         await ctx.reply("⏳ Verifying...");
         return ctx.telegram.sendPhoto(ADMIN_ID, photoId, {
@@ -158,7 +150,6 @@ bot.action(/^approve_(\d+)_(.+)$/, async (ctx) => {
     const targetId = ctx.match[1];
     const chKey = ctx.match[2];
     const ch = CHANNELS[chKey];
-
     if (ch) {
         await ctx.editMessageCaption(`✅ Approved: ${ch.name}`);
         await ctx.telegram.sendMessage(targetId, `🚀 **Verified!** Access granted to: **${ch.name}**`, 
@@ -175,8 +166,20 @@ bot.action(/^reject_(\d+)$/, async (ctx) => {
     return ctx.answerCbQuery();
 });
 
-bot.launch().then(() => console.log("--- Online (Node.js) ---"));
-
+// --- VERCEL WEBHOOK HANDLER ---
+module.exports = async (req, res) => {
+    try {
+        if (req.method === 'POST') {
+            await bot.handleUpdate(req.body);
+            res.status(200).send('OK');
+        } else {
+            res.status(200).send('Bot is active!');
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error');
+    }
+};
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));
