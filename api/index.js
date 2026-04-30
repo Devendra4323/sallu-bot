@@ -51,7 +51,8 @@ const getMainKeyboard = () => {
 };
 
 bot.start((ctx) => {
-    return ctx.reply("🥵 Welcome! 🥵\nAll Types Content: 149rs Only", getMainKeyboard());
+    console.log("Message received from:", ctx.from.id); // This will show in logs
+    return ctx.reply("I can hear you! The connection is working.");
 });
 
 bot.action('go_back', async (ctx) => {
