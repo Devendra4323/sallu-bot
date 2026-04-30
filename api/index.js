@@ -1,9 +1,9 @@
 const { Telegraf, Markup } = require('telegraf');
 
 // --- CONFIGURATION ---
-const TOKEN = process.env.BOT_TOKEN; // Best practice: use environment variables
+const TOKEN = "8715171203:AAGy_iMja9G0QXivtlW_bzj5o6X5ZhCds3k";
 const ADMIN_ID = 5719967199;
-const QR_CODE_PATH = "./api/code.jpeg"; // Ensure this file exists in /api folder
+const QR_CODE_PATH = "./api/code.jpeg"; 
 const GLOBAL_PRICE = "149rs";
 
 const bot = new Telegraf(TOKEN);
@@ -36,7 +36,6 @@ const CHANNELS = {
     "shemale": { name: "Indina Shemale",  link: "https://t.me/+nS5YVGjqJIVkOTJl" },
 };
 
-// State handling (WARNING: This will reset frequently in Serverless)
 const userState = {};
 
 const getMainKeyboard = () => {
@@ -47,7 +46,6 @@ const getMainKeyboard = () => {
     return Markup.inlineKeyboard(buttons);
 };
 
-// --- HANDLERS ---
 bot.start((ctx) => ctx.replyWithMarkdownV2("🥵 **Welcome\\!** 🥵\nAll Types Content: 149rs Only", getMainKeyboard()));
 
 bot.action('go_back', async (ctx) => {
@@ -156,12 +154,17 @@ bot.action(/^reject_(\d+)$/, async (ctx) => {
     return ctx.answerCbQuery();
 });
 
-// --- VERCEL WEBHOOK HANDLER ---
+// Vercel Serverless Function Handler
 module.exports = async (req, res) => {
     if (req.method === 'POST') {
-        await bot.handleUpdate(req.body);
-        res.status(200).send('OK');
+        try {
+            await bot.handleUpdate(req.body);
+            res.status(200).send('OK');
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Bot error');
+        }
     } else {
-        res.status(200).send('Bot is running');
+        res.status(200).send('Bot is online!');
     }
 };
