@@ -12,14 +12,32 @@ const bot = new Telegraf(TOKEN);
 
 // --- DATA ---
 const RAW_DEMO_PHOTOS = [
-    "AgACAgUAAxkBAAO8aer8Xb4IA_YiQtfw7spbd4HT_X4AAl3IMRswXXFW5q5BKkdhps4BAAMCAAN5AAM7BA",
-    "AgACAgUAAxkBAAO9aer8XYf51rqwpfSJYm00qJAcmDIAAjHFMRsboEhWDDFZFubg5VMBAAMCAAN5AAM7BA",
-    "AgACAgUAAxkBAAO-aer8XS0KCt8oUy2rtpP5nGMXkMkAAl7IMRswXXFWKd08dJ23zZEBAAMCAAN5AAM7BA",
-    "AgACAgQAAxkBAAO_aer8XU6oNmOnVWuwhG1xl4EynQIAAqrHMRti6nlSMbpeldGpvGMBAAMCAAN5AAM7BA",
+     "AgACAgUAAxkBAAO8aer8Xb4IA_YiQtfw7spbd4HT_X4AAl3IMRswXXFW5q5BKkdhps4BAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAO9aer8XYf51rqwpfSJYm00qJAcmDIAAjHFMRsboEhWDDFZFubg5VMBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAO-aer8XS0KCt8oUy2rtpP5nGMXkMkAAl7IMRswXXFWKd08dJ23zZEBAAMCAAN5AAM7BA",
+        "AgACAgQAAxkBAAO_aer8XU6oNmOnVWuwhG1xl4EynQIAAqrHMRti6nlSMbpeldGpvGMBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAO9aer8XYf51rqwpfSJYm00qJAcmDIAAjHFMRsboEhWDDFZFubg5VMBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPBaer8XcNpcprL48QXtZm_wiBrZ2cAAte9MRsDWuhVygZ_ybkmPMIBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPCaer8XZcfzP6Ff-LI8W5nzzMKaYcAAta9MRsDWuhVxYC08X6m80EBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPDaer8XS9ns8NWaY8jFp_0N1lpieYAAri8MRtE52FVKvTz3U5s-gkBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPEaer8XWO-mRhrL4_5xVoR5GwKwVcAAra8MRtE52FVPPWN5tseHvEBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPFaer8XePeiMyvV3t3RqGfx1-y_QoAArW8MRtE52FVL7Wgz53KQhABAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPGaer8XcL6WHq8NlQ1_5llOj_Sl0sAAp_CMRvwv1FVQ5S9iszMun8BAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPHaer8XQ1glNvVHdSbfdTGpsbUaGgAApzCMRvwv1FVGtQEB7W_lYwBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPIaer8XfRotukY4-9zJ8hiiHK7jCUAAqDCMRvwv1FVSyaPYK2Sc9UBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPJaer8XYhBeEcokrNGNBG9SKW_yRYAAnO_MRu-oUlV-4KfG1xf48YBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPKaer8XeBX_XUX8fEx3neYX6tv2UMAAnW_MRu-oUlVFuJAKuSO2fkBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPLaer8Xd4zSGx1R-Oi8aAY7LjIOm0AAo7CMRvk09lV22esPU2S5doBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPMaer8XS5_VW9gAaeAqZTZUieoCSgAAgHIMRvPpWlVuDYfPjPPN0cBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPNaer8XX_sF5_HYQE4PvwWnASdfmoAAoLDMRtqBdlV90o8FE8moKABAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPOaer8XUe_r0fO7Q2HhMhUo7MXdksAAlTCMRss39lVkKMuNhe2CH4BAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPPaer8XSjEWMYYBYW1B_QxNcBldokAAoHDMRtqBdlVtLMjr9_grhEBAAMCAAN5AAM7BA",
+        "AgACAgUAAxkBAAPQaer8XQABJe80YrCI5a8MxTIJShdJAALvDWsbExIpVdEoVfmQriNCAQADAgADeQADOwQ",
+        "AgACAgUAAxkBAAPRaer8XW1udGM_AqR2R5q1qtpBPvcAAu0NaxsTEilVFR2VZ-wbFbgBAAMCAAN5AAM7BA",
 ];
 
 const CHANNELS = {
-    "indian": { name: "Indian All Types Mix", link: "https://t.me/+2kLBJdAkHXVkN2Q1" },
+    "indian": { name: "Indian All Types Mix", link: "https://t.me/pornxnow_official" },
     "leaked": { name: "Indian Leaked", link: "https://t.me/pornxnow_official" },
     "family": { name: "Real Family", link: "https://t.me/Ultimateplike" },
     "mom": { name: "Mom Son", link: "https://t.me/+--DW0-cWo-M2MGI9" },
@@ -129,7 +147,7 @@ bot.action(/^pay_(.+)$/, async (ctx) => {
         if (!userState[userId]) userState[userId] = {};
         userState[userId].buying = key;
 
-        await ctx.reply("Pay on this QR Code and send screenshot here..");
+        await ctx.reply("UPI:- 09xxxxxxxxx321@ibl (Copy This UPI) \n Pay on this QR Code and send screenshot here..");
         
         return await ctx.replyWithPhoto({ source: QR_CODE_PATH });
     } catch (e) {
