@@ -147,7 +147,7 @@ bot.action(/^pay_(.+)$/, async (ctx) => {
         if (!userState[userId]) userState[userId] = {};
         userState[userId].buying = key;
 
-        await ctx.reply("UPI:- 09xxxxxxxxx321@ibl (Copy This UPI) \n Pay on this QR Code and send screenshot here..");
+        await ctx.reply(" Pay on this QR Code and send screenshot here..");
         
         return await ctx.replyWithPhoto({ source: QR_CODE_PATH });
     } catch (e) {
