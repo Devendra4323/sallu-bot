@@ -37,23 +37,24 @@ const RAW_DEMO_PHOTOS = [
 ];
 
 const CHANNELS = {
-    "indian": { name: "Indian All Types Mix", link: "https://t.me/pornxnow_official" },
-    "leaked": { name: "Indian Leaked", link: "https://t.me/pornxnow_official" },
+    "indian": { name: "Indian All Types Primium", link: "https://t.me/+KbKruxgpui05YTA5" },
+    "leaked": { name: "Indian Best", link: "https://t.me/y9PAbFkNZ1g1ZWE9" },
     "family": { name: "Real Family", link: "https://t.me/Ultimateplike" },
     "mom": { name: "Mom Son", link: "https://t.me/+--DW0-cWo-M2MGI9" },
     "cuck": { name: "Cuckold", link: "https://t.me/hootwifexxx" },
     "nude": { name: "Indian Girl Nude", link: "https://t.me/+1jEzt0m9d0c0ZDI1" },
     "incest": { name: "Incest", link: "https://t.me/+UrGILZ52EDliZDNl" },
-    "hidden": { name: "Hidden Cam", link: "https://t.me/rainbowUnicornsandangels" },
+    "hidden": { name: "Hidden Cam", link: "https://t.me/+_C73rc3bq9kwMjU1" },
     "forced": { name: "Forced", link: "https://t.me/BondagePunishment" },
-    "aunty": { name: "Aunty",  link: "https://t.me/desioldaunty" },
+    "aunty": { name: "Aunty",  link: "https://t.me/mallukambichttttt" },
     "sleeping": { name: "Sleeping Family",  link: "https://t.me/+4dfAPps7IbZlZTY1" },
-    "teen": { name: "Teen",  link: "https://t.me/+1jEzt0m9d0c0ZDI1" },
-    "gf": { name: "Gf Bf",  link: "https://t.me/Ultimateplike" },
+    "teen": { name: "Teen",  link: "https://t.me/+oqsm6F3fxwBjYWY1" },
+    "gf": { name: "Gf Bf",  link: "https://t.me/Ocmasala007" },
     "desi": { name: "Desi Village",  link: "https://t.me/withoffuss2" },
     "snap": { name: "Snapchat & Insta",  link: "https://t.me/+link3" },
-    "vip": { name: "VIP collection",  link: "https://t.me/addlist/2__SaYAEpEg5ZTM1" },
+    "vip": { name: "VIP collection",  link: "https://t.me/+XqwmNQQ82oVlMDg1" },
     "shemale": { name: "Indina Shemale",  link: "https://t.me/+nS5YVGjqJIVkOTJl" },
+    "2026 NEW": { name: "NEW 2026",  link: "https://t.me/+W5_sDHIANw4zMDdl" },
 };
 
 const userState = {};
