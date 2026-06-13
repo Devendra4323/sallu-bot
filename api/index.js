@@ -63,7 +63,7 @@ const getMainKeyboard = () => {
     const buttons = Object.entries(CHANNELS).map(([key, d]) => [
         Markup.button.callback(`${d.name} `, `view_${key}`)
     ]);
-    buttons.push([Markup.button.callback("👉View Demo Screenshots👈", "start_demo")]);
+    buttons.push([Markup.button.callback("👉👉👉View Demo Screenshots👈👈👈", "start_demo")]);
     return Markup.inlineKeyboard(buttons);
 };
 
