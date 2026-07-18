@@ -4,7 +4,6 @@ const path = require('path');
 // --- CONFIGURATION ---
 const TOKEN = "8715171203:AAGy_iMja9G0QXivtlW_bzj5o6X5ZhCds3k";
 const ADMIN_ID = 5719967199;
-const QR_CODE_PATH = "./api/code.jpeg";
 // Using path.join ensures Vercel finds the file regardless of its internal structure
 const QR_CODE_PATH = path.join(process.cwd(), 'api', 'code.jpeg');
 const GLOBAL_PRICE = "100rs";
