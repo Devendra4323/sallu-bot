@@ -186,9 +186,10 @@ bot.action(/^approve_(\d+)_(.+)$/, async (ctx) => {
 
         if (ch) {
             await ctx.editMessageCaption(`✅ Approved: ${ch.name}`);
-            await ctx.telegram.sendMessage(targetId, `🚀 **Verified!** Access granted to: **${ch.name}**`,
+            await ctx.telegram.sendMessage(targetId, `🚀 **Verified!** Access granted to: *${ch.name}*`,
                 Markup.inlineKeyboard([[Markup.button.url("🔗 Join Channel", ch.link)]])
             );
+            await ctx.telegram.sendMessage(targetId, "If The Link is Expired or in Case of any Issue Message Admin:- @Golden01234");
         }
     } catch (e) { console.error(e); }
 });
