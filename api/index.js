@@ -4,12 +4,9 @@ const path = require('path');
 // --- CONFIGURATION ---
 const TOKEN = "8715171203:AAGy_iMja9G0QXivtlW_bzj5o6X5ZhCds3k";
 const ADMIN_ID = 5719967199;
-<<<<<<< HEAD
 const QR_CODE_PATH = "./api/code.jpeg";
-=======
 // Using path.join ensures Vercel finds the file regardless of its internal structure
 const QR_CODE_PATH = path.join(process.cwd(), 'api', 'code.jpeg');
->>>>>>> 0e92f58bf57bd47265f3aabec586d516f62f075b
 const GLOBAL_PRICE = "100rs";
 
 const bot = new Telegraf(TOKEN);
